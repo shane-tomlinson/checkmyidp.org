@@ -3,7 +3,7 @@
 A super simple linter to check whether a domain is set up to be a Mozilla
 Persona/BrowserID Identity Provider.
 
-Check it out at checkmyidp.org
+Check it out at http://checkmyidp.org
 
 ## Author:
 * Shane Tomlinson
