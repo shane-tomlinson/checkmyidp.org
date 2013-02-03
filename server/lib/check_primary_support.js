@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
@@ -71,7 +69,7 @@ function getResource(mode, url, opts, cb) {
       /*console.log(includes[mode], hasInclude);*/
       /*checkResource(res, url, opts, body);*/
 
-      return cb && cb(null, hasInclude);
+      return cb && cb(null, hasInclude, body);
     });
   }).on('error', function (e) {
     console.log("ERROR: ", e.message);
