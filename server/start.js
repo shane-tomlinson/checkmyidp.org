@@ -24,4 +24,4 @@ app.post('/lint', function(req, res) {
   });
 });
 
-app.listen(3000);
+app.listen(process.env['PORT'] || 3000, '127.0.0.1');
