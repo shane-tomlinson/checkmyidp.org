@@ -1,0 +1,29 @@
+doctype
+html
+  head
+    title "checkmyidp.org - Mozilla Persona Identity Provider (IdP) Linter - Results"
+    style 
+      ul,li {
+        list-style-type: none;
+      }
+      label {
+        display: inline-block;
+        width: 175px;
+      }
+  body
+    h1 checkmyidp.org - Mozilla Persona Identity Provider (IdP) Linter - Results
+
+    ul
+      li 
+        label Public Key: 
+        span #{publicKey}
+      li 
+        label Authentication Page: 
+        span #{urls.auth}
+      li 
+        label Provisioning Page: 
+        span #{urls.prov}
+      li 
+        label Authoritative Domain: 
+        span #{authoritativeDomain}
+

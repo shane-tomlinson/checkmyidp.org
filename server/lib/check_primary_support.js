@@ -27,6 +27,7 @@ exports.checkSupport = function(domain, done) {
     console.log('Provisioning URL:\t', r.urls.prov);
     console.log('Public Key:\t\t', JSON.stringify(r.publicKey, null, "  "));
 */
+    r.publicKey = JSON.stringify(r.publicKey, null, "  ");
     var authopts = {
         xframe: false
     };

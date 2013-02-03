@@ -19,8 +19,10 @@ app.get('/', function(req, res) {
 
 app.post('/lint', function(req, res) {
   var domain = req.body.idp_url;
-  check_support.checkSupport(domain, function(error, result) {
-    res.send(JSON.stringify(result, null, 2));
+  check_support.checkSupport(domain, function(err, result) {
+    if (err) return res.send(500);
+
+    res.render('lint.jade', result);
   });
 });
 
