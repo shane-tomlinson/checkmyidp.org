@@ -1,7 +1,7 @@
 doctype
 html
   head
-    title "checkmyidp.org - Mozilla Persona Identity Provider (IdP) Linter - Results"
+    title "checkmyidp.org - Mozilla Persona Identity Provider (IdP) Linter - Results for #{domain}"
     style 
       ul,li {
         list-style-type: none;
@@ -10,8 +10,13 @@ html
         display: inline-block;
         width: 175px;
       }
+
+      li div label {
+        margin-left: 20px;
+        width: 155px;
+      }
   body
-    h1 checkmyidp.org - Mozilla Persona Identity Provider (IdP) Linter - Results
+    h1 checkmyidp.org - Mozilla Persona Identity Provider (IdP) Linter - Results for #{domain}
 
     ul
       li 
@@ -20,9 +25,15 @@ html
       li 
         label Authentication Page: 
         span #{urls.auth}
+        div
+          label Contains shim: 
+          span #{hasAuth}
       li 
         label Provisioning Page: 
         span #{urls.prov}
+        div
+          label Contains shim: 
+          span #{hasProv}
       li 
         label Authoritative Domain: 
         span #{authoritativeDomain}

@@ -18,10 +18,11 @@ app.get('/', function(req, res) {
 });
 
 app.post('/lint', function(req, res) {
-  var domain = req.body.idp_url;
+  var domain = req.body.idp_url.replace(/https?:\/\//, '');
   check_support.checkSupport(domain, function(err, result) {
     if (err) return res.send(500);
 
+    result.domain = domain;
     res.render('lint.jade', result);
   });
 });

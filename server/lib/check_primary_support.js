@@ -20,29 +20,19 @@ exports.checkSupport = function(domain, done) {
       }
     }
 
-    /*
-    console.log('Primary domain:\t\t', domain);
-    console.log('Authoritative Domain:\t', r.authoritativeDomain);
-    console.log('Authentication URL:\t', r.urls.auth);
-    console.log('Provisioning URL:\t', r.urls.prov);
-    console.log('Public Key:\t\t', JSON.stringify(r.publicKey, null, "  "));
-*/
     r.publicKey = JSON.stringify(r.publicKey, null, "  ");
     var authopts = {
         xframe: false
     };
-    /*return done && done(null, r);*/
-    console.log("getting auth");
-    getResource('auth', r.urls.auth, authopts, function (err, hasAuth) {
-      r.hasAuth = err ? String(err): hasAuth;
 
-      console.log("got auth");
+    getResource('auth', r.urls.auth, authopts, function (err, hasAuth) {
+      r.hasAuth = err ? String(err) : hasAuth;
+
       getResource('prov', r.urls.prov, {
         xframe: true
-      }, function(hasProv) {
-        r.hasProv = err ? String(err): hasProv;
+      }, function(err, hasProv) {
+        r.hasProv = err ? String(err) : hasProv;
 
-        console.log("got prov");
         done && done(null, r);
       });
     });
@@ -67,20 +57,22 @@ function getResource(mode, url, opts, cb) {
       body += chunk;
     });
 
-    var includes = {
-      'auth': '/authentication_api.js',
-      'prov': '/provisioning_api.js'
-    };
-    var hasInclude = true;
-    if (body.indexOf(util.format("https://login.persona.org%s", includes[mode])) == -1 &&
-        body.indexOf(util.format("https://login.anosrep.org%s", includes[mode])) == -1 &&
-        body.indexOf(util.format("https://login.dev.anosrep.org%s", includes[mode])) == -1) {
-        hasInclude = false;
-    }
+    res.on('end', function() {
+      var includes = {
+        'auth': '/authentication_api.js',
+        'prov': '/provisioning_api.js'
+      };
 
-    checkResource(res, url, opts, body);
+      /*console.log(body);*/
+      var hasInclude = body.indexOf(util.format("https://login.persona.org%s", includes[mode])) > -1
+                          || body.indexOf(util.format("https://login.anosrep.org%s", includes[mode])) > -1
+                          || body.indexOf(util.format("https://login.dev.anosrep.org%s", includes[mode])) > -1;
 
-    return cb && cb(hasInclude);
+      /*console.log(includes[mode], hasInclude);*/
+      /*checkResource(res, url, opts, body);*/
+
+      return cb && cb(null, hasInclude);
+    });
   }).on('error', function (e) {
     console.log("ERROR: ", e.message);
     cb && cb(e);
