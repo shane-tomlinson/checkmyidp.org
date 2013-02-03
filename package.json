@@ -1,0 +1,36 @@
+{
+  "Author": "Shane Tomlinson <shane@shanetomlinson.com> (https://shanetomlinson.com)",
+  "name": "checkmyidp.org",
+  "description": "A BrowserID/Mozilla Persona Identity Provider linter",
+  "keywords": ["mozilla", "persona", "browserid"],
+  "homepage": "https://github.com/shane-tomlinson/checkmyidp.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shane-tomlinson/checkmyidp.org.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shane-tomlinson/checkmyidp.org/issues"
+  },
+  "version": "0.0.1-dev1",
+  "engines": {
+    "node": ">= 0.4.7"
+  },
+  "main": "index",
+  "dependencies": {
+    "underscore": "1.3.1",
+    "express": "3.1.0",
+    "jade": "0.28.1",
+    "postprocess": "0.2.4",
+    "urlparse": "0.0.1",
+    "jwcrypto": "0.4.2"
+  },
+  "devDependencies": {
+    "nodeunit": ">=0.6.4",
+    "awsbox": "0.3.5"
+  },
+  "scripts": {
+    "test": "nodeunit test",
+    "start": "node server/start.js"
+
+  }
+}
