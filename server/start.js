@@ -4,6 +4,7 @@
 
 const express       = require('express'),
       path          = require('path'),
+      url           = require('url'),
       check_support = require('./lib/check_primary_support');
 
 var app = express();
@@ -18,7 +19,14 @@ app.get('/', function(req, res) {
 });
 
 app.get('/lint', function(req, res) {
-  var domain = req.query.idp_url.replace(/https?:\/\//, '');
+  var with_http = 'http://' + req.query.idp_url.replace(/https?:\/\//, '');
+  var domain = url.parse(with_http).hostname;
+
+  if (!(domain === req.query.idp_url)) {
+    res.redirect('lint?idp_url=' + domain);
+    return;
+  }
+
   check_support.checkSupport(domain, function(err, result) {
     if (err) return res.send(500);
 
