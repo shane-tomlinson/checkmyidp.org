@@ -4,7 +4,7 @@ html
     title "checkmyidp.org - Mozilla Persona Identity Provider (IdP) Linter"
   body
     h1 checkmyidp.org - Mozilla Persona Identity Provider (IdP) Linter
-    form(action="/lint", method="post")
+    form(action="/lint", method="get")
       label(for="idp_url") Identity Provider URL
       input(type="text", placeholder="eyedee.me", name="idp_url")#idp_url
       button Check IdP

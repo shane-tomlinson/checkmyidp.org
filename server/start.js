@@ -17,8 +17,8 @@ app.get('/', function(req, res) {
   res.render('index.jade');
 });
 
-app.post('/lint', function(req, res) {
-  var domain = req.body.idp_url.replace(/https?:\/\//, '');
+app.get('/lint', function(req, res) {
+  var domain = req.query.idp_url.replace(/https?:\/\//, '');
   check_support.checkSupport(domain, function(err, result) {
     if (err) return res.send(500);
 
