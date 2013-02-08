@@ -1,10 +1,15 @@
 extends layout
 
 block title
-    title checkmyidp.org - #{domain} results - Mozilla Persona Identity Provider (IdP) Linter
+  title checkmyidp.org - #{domain} results - Mozilla Persona Identity Provider (IdP) Linter
+
+block heading
+  hgroup
+    h1 checkmyidp.org
+    h2 A Mozilla Persona Identity Provider (IdP) Linter
+    h3 #{domain} results
 
 block content
-    h1 checkmyidp.org - #{domain} results - Mozilla Persona Identity Provider (IdP) Linter
 
     - if (typeof error !== "undefined")
       div #{error}
@@ -47,6 +52,11 @@ block content
             each val, key in publicKey.serialized
               li
                 label #{key}:
-                span #{val}
+                span#key #{val}
 
-
+      nav
+        ul
+          li
+            a(href="#{url}") Check again
+          li
+            a(href="/") Try another domain

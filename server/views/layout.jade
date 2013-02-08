@@ -4,20 +4,207 @@ html
     meta(charset='utf-8')
     block title
 
+    link(href="/en/opensans-regular,sourcesanspro-regular/fonts.css", type="text/css", rel="stylesheet")
+
     style
-      ul,li {
-        list-style-type: none;
+      /* http://meyerweb.com/eric/tools/css/reset/ 
+      *    v2.0 | 20110126
+      *       License: none (public domain)
+      *
+      */
+
+      html, body, div, span, applet, object, iframe,
+      h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+      a, abbr, acronym, address, big, cite, code,
+      del, dfn, em, img, ins, kbd, q, s, samp,
+      small, strike, strong, sub, sup, tt, var,
+      b, u, i, center,
+      dl, dt, dd, ol, ul, li,
+      fieldset, form, label, legend,
+      table, caption, tbody, tfoot, thead, tr, th, td,
+      article, aside, canvas, details, embed, 
+      figure, figcaption, footer, header, hgroup, 
+      menu, nav, output, ruby, section, summary,
+      time, mark, audio, video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
       }
+      /* HTML5 display-role reset for older browsers */
+      article, aside, details, figcaption, figure, 
+      footer, header, hgroup, menu, nav, section {
+        display: block;
+      }
+      body {
+        line-height: 1;
+        font-family: 'Source Sans Pro', 'Helvetica', 'sans-serif', 'serif';
+      }
+      ol, ul {
+        list-style: none;
+      }
+      blockquote, q {
+        quotes: none;
+      }
+      blockquote:before, blockquote:after,
+      q:before, q:after {
+        content: '';
+        content: none;
+      }
+      table {
+        border-collapse: collapse;
+        border-spacing: 0;
+      }
+
+      /* site specific CSS */
+      html {
+        padding: 1.1em;
+
+      }
+
+      header {
+        margin-bottom: 1em;
+      }
+
+      hgroup {
+        color: #888;
+      }
+
+      h1, h2, h3 {
+        font-weight: bold;
+        line-height: 1.3em;
+      }
+
+      h1 {
+        font-size: 1.3em;
+      }
+
       label {
+        display: block;
+      }
+
+      input {
+        padding: 5px;
+        width: 100%;
+        border-radius: 5px;
+        border: 2px solid #bbb;
+        margin-bottom: 1em;
+      }
+
+      button {
+        font-size: 1.2em;
+        color: #fff;
+        display: block;
+        margin: 0 auto;
+        padding: 10px;
+        background-color: #00ff00;
+        border: 0;
+        color: #fff;
+        text-shadow: 0 1px rgba(0,0,0,0.5);
+        border-radius: 7px;
+        box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.3), 0 1px 0 rgba(0, 0, 0, 0.2);
+
+        background-color: #4eb5e5;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#4eb5e5), to(#3196cf));
+        background-image: -webkit-linear-gradient(top, #4eb5e5, #3196cf);
+        background-image:    -moz-linear-gradient(top, #4eb5e5, #3196cf);
+        background-image:      -ms-linear-gradient(top, #4eb5e5, #3196cf);
+        background-image:       -o-linear-gradient(top, #4eb5e5, #3196cf);
+        background-image:          linear-gradient(top, #4eb5e5, #3196cf);
+      }
+
+      button:hover,
+      button:focus,
+      .button:hover,
+      .button:focus {
+          box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.3), 0 1px 0 rgba(0, 0, 0, 0.2), 0 2px 0 rgba(0, 0, 0, 0.1);
+
+          background-color: #4aafe5;
+          background-image: -webkit-gradient(linear, left top, left bottom, from(#4aafe5), to(#2c89c8));
+          background-image: -webkit-linear-gradient(top, #4aafe5, #2c89c8);
+          background-image:    -moz-linear-gradient(top, #4aafe5, #2c89c8);
+          background-image:      -ms-linear-gradient(top, #4aafe5, #2c89c8);
+          background-image:       -o-linear-gradient(top, #4aafe5, #2c89c8);
+          background-image:          linear-gradient(top, #4aafe5, #2c89c8);
+      }
+
+      button:focus,
+      .button:focus {
+          box-shadow: 0 0 1px #fff, 0 0 1px 3px #49ADE3;
+          box-shadow: 0 0 1px rgba(255, 255, 255, 0.5), 0 0 1px 3px rgba(73, 173, 227, 0.6);
+      }
+
+      button:active,
+      .button:active {
+          background-color: #184a73;
+          background-image: -webkit-gradient(linear, left top, left bottom, from(#184a73), to(#276084));
+          background-image: -webkit-linear-gradient(top, #184a73, #276084);
+          background-image:    -moz-linear-gradient(top, #184a73, #276084);
+          background-image:      -ms-linear-gradient(top, #184a73, #276084);
+          background-image:       -o-linear-gradient(top, #184a73, #276084);
+          background-image:          linear-gradient(top, #184a73, #276084);
+          color: #97b6ca;
+          text-shadow: 0 1px rgba(0,0,0,0.4);
+          box-shadow: inset 0 2px 1px rgba(0,0,0,0.3);
+      }
+
+      button::-moz-focus-inner, .button::-moz-focus-inner {
+        padding: 0;
+        border: 0
+      }
+
+      a {
+        color: #348fd0;
+        text-decoration: none;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+        font-weight: 300;
+      }
+
+      a:hover {
+        color: #000;
+      }
+
+      li label {
         display: inline-block;
         width: 175px;
       }
 
-      li div label {
+      li li label {
         margin-left: 20px;
         width: 155px;
       }
-  body
-    block content
 
-    footer
+      nav {
+        margin-top: 2em;
+        padding-top: 1em;
+        border-top: 1px solid #ccc;
+      }
+
+      nav ul {
+        text-align: center;
+      }
+
+      nav li {
+        display: inline-block;
+        margin-right: 1em;
+      }
+
+      #container {
+        max-width: 60%;
+        margin: 0 auto;
+      }
+
+      #key {
+        word-wrap: break-word;
+      }
+
+  body
+    div#container
+      header 
+        block heading
+
+      block content
+
+      block footer
