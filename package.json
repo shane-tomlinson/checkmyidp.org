@@ -23,7 +23,7 @@
     "postprocess": "0.2.4",
     "urlparse": "0.0.1",
     "jwcrypto": "0.4.2",
-    "connect-fonts": "0.0.9-alpha2",
+    "connect-fonts": "0.0.9-alpha3",
     "connect-fonts-opensans": "0.0.2",
     "connect-fonts-sourcesanspro": "0.0.1"
   },
