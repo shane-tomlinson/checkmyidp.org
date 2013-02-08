@@ -1,8 +1,8 @@
 doctype
 html
   head
-    title "checkmyidp.org - Mozilla Persona Identity Provider (IdP) Linter - Results for #{domain}"
-    style 
+    title checkmyidp.org - #{domain} results - Mozilla Persona Identity Provider (IdP) Linter
+    style
       ul,li {
         list-style-type: none;
       }
@@ -16,25 +16,44 @@ html
         width: 155px;
       }
   body
-    h1 checkmyidp.org - Mozilla Persona Identity Provider (IdP) Linter - Results for #{domain}
+    h1 checkmyidp.org - #{domain} results - Mozilla Persona Identity Provider (IdP) Linter
 
     ul
-      li 
-        label Public Key: 
-        span #{publicKey}
-      li 
-        label Authentication Page: 
-        span #{urls.auth}
-        div
-          label Contains shim: 
-          span #{hasAuth}
-      li 
-        label Provisioning Page: 
-        span #{urls.prov}
-        div
-          label Contains shim: 
-          span #{hasProv}
-      li 
-        label Authoritative Domain: 
+      li
+        label Authoritative Domain:
         span #{authoritativeDomain}
 
+      li
+        label Authentication:
+        ul
+          li
+            label page:
+            a(href=urls.auth) #{urls.auth}
+          li
+            label contains shim:
+            span #{hasAuth}
+      li
+        label Provisioning:
+        ul
+          li
+            label page:
+            a(href=urls.prov) #{urls.prov}
+          li
+            label contains shim:
+            span #{hasProv}
+
+
+      li
+        label Public Key:
+        ul
+          li
+            label algorithm:
+            span #{publicKey.algorithm}
+          li
+            label keysize:
+            span #{publicKey.keysize}
+
+          each val, key in publicKey.serialized
+            li
+              label #{key}:
+              span #{val}

@@ -18,7 +18,10 @@ exports.checkSupport = function(domain, done) {
       }
     }
 
-    r.publicKey = JSON.stringify(r.publicKey, null, "  ");
+    var temp = {};
+    r.publicKey.serializeToObject(temp);
+    r.publicKey.serialized = temp;
+
     var authopts = {
         xframe: false
     };
