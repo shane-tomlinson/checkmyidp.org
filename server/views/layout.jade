@@ -169,6 +169,10 @@ html
         color: #000;
       }
 
+      h1 a, h1 a:hover {
+        color: #888;
+      }
+
       li label {
         display: inline-block;
         width: 175px;
@@ -181,6 +185,10 @@ html
 
       nav {
         margin-top: 2em;
+      }
+
+      footer {
+        margin-top: 2em;
         padding-top: 1em;
         border-top: 1px solid #ccc;
       }
@@ -189,7 +197,7 @@ html
         text-align: center;
       }
 
-      nav li {
+      nav li, footer li {
         display: inline-block;
         margin-right: 1em;
       }
@@ -206,8 +214,15 @@ html
   body
     div#container
       header 
-        block heading
+        hgroup
+          h1 <a href="/">checkmyidp.org</a>
+          h2 A <a target="_blank" href="https://login.persona.org">Mozilla Persona</a> Identity Provider (IdP) Linter
+          block heading
 
       block content
 
       block footer
+        footer
+          ul
+            li A Friday Hack by <a target="_blank" href="https://shanetomlinson.com">Shane Tomlinson</a>
+            li Source code on <a target="_blank" href="https://github.com/shane-tomlinson/checkmyidp.org">GitHub</a>

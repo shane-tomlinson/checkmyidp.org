@@ -3,13 +3,9 @@ extends layout
 block title 
   title checkmyidp.org - Mozilla Persona Identity Provider (IdP) Linter
 
-block heading
-  hgroup
-    h1 checkmyidp.org 
-    h2 A Mozilla Persona Identity Provider (IdP) Linter
-
 block content 
     form(action="/lint", method="get")
       label(for="idp_url") Identity Provider URL:
-      input(type="text", placeholder="eyedee.me", name="idp_url", autofocus="autofocus")#idp_url
+      input(type="text", placeholder="eyedee.me", name="idp_url", autofocus="autofocus", required="required")#idp_url
       button Check IdP
+
