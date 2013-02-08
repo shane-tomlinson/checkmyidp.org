@@ -1,8 +1,9 @@
-doctype
-html
-  head
-    title checkmyidp.org - Mozilla Persona Identity Provider (IdP) Linter
-  body
+extends layout
+
+block title 
+  title checkmyidp.org - Mozilla Persona Identity Provider (IdP) Linter
+
+block content 
     h1 checkmyidp.org - Mozilla Persona Identity Provider (IdP) Linter
     form(action="/lint", method="get")
       label(for="idp_url") Identity Provider URL

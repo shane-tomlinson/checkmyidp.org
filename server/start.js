@@ -28,7 +28,8 @@ app.get('/lint', function(req, res) {
   }
 
   check_support.checkSupport(domain, function(err, result) {
-    if (err) return res.send(500);
+    // The error will contain the error message to print to the user.
+    if (err) result = { error: String(err) };
 
     result.domain = domain;
     res.render('lint.jade', result);
