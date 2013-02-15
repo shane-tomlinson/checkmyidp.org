@@ -5,8 +5,10 @@
 const express             = require('express'),
       path                = require('path'),
       url                 = require('url'),
-      check_support       = require('./lib/check_primary_support'),
+      check_support       = require('./lib/check-primary-support'),
       config              = require('./lib/config'),
+      substitution_middleware
+                          = require('./lib/substitution-middleware'),
       connect_fonts       = require('connect-fonts'),
       open_sans           = require('connect-fonts-opensans'),
       source_sans_pro     = require('connect-fonts-sourcesanspro');
@@ -16,6 +18,14 @@ var app = express();
 app.engine('jade', require('jade').__express);
 app.set('views', path.join(__dirname, "views"));
 app.use(express.bodyParser());
+
+var public_url = config.get('public_url');
+if (public_url !== "https://checkmyidp.org") {
+  app.use(substitution_middleware.setup({
+    from: "https://checkmyidp.org",
+    to: public_url
+  }));
+}
 
 app.use(connect_fonts.setup({
   fonts: [ open_sans, source_sans_pro ],
@@ -31,7 +41,7 @@ app.get('/', function(req, res) {
 app.get('/lint', function(req, res) {
   var idp_url = req.query.idp_url || "";
   // url.parse requires that the protocol be prepended to the domain name
-  var with_http = 'http://' + req.query.idp_url.replace(/https?:\/\//, '');
+  var with_http = 'http://' + idp_url.replace(/https?:\/\//, '');
   var domain = url.parse(with_http).hostname;
 
   if (!(domain === req.query.idp_url)) {
@@ -49,8 +59,31 @@ app.get('/lint', function(req, res) {
   });
 });
 
+app.get('/check_pages', function(req, res) {
+  var auth = req.query.auth;
+  var prov = req.query.prov;
+  var username = req.query.username;
+  var domain = req.query.domain;
+  var redirectTo = auth + toQueryString({
+    email: username + "@" + domain,
+    prov: prov,
+  });
+
+  res.redirect(redirectTo);
+});
+
 var port = config.get('port');
 var host = config.get('host');
 app.listen(port, host, function() {
   console.log("Server running at: ", (host + ":" + port));
 });
+
+function toQueryString(params) {
+  var queryString = "?";
+  var queryParams = [];
+  for(var key in params) {
+    queryParams.push(key + "=" + encodeURIComponent(params[key]));
+  }
+  return queryString + queryParams.join("&");
+}
+

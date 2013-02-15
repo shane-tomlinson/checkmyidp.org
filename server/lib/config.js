@@ -5,7 +5,7 @@
 const path          = require('path'),
       fs            = require('fs');
 
-const config_dir    = path.join(__dirname, "..", "config");
+const config_dir    = path.join(__dirname, "..", "etc");
 
 var config = getConfig();
 

@@ -57,3 +57,18 @@ block content
           a(href="#{url}") Check again
         li
           a(href="/") Try another domain
+
+
+    - if (typeof error === "undefined")
+      h3 Check Authentication and provisioning pages
+      ul
+        li
+          form(action="/check_pages", method="get")
+            label Username:
+            input#username(name="username", type="text") 
+            input(name="auth", type="hidden", value="#{urls.auth}")
+            input(name="prov", type="hidden", value="#{urls.prov}")
+            input(name="domain", type="hidden", value="#{domain}")
+            button Check Pages
+
+

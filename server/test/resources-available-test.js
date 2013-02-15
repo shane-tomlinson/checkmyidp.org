@@ -20,9 +20,12 @@ const server_path = path.join(__dirname, '..', 'start.js');
 
 const urls_to_check = {
   '/': 200,
-  '/lint': 200,
+  '/lint?idp_url=eyedee.me': 200,
+  // check pages redirects to the authentication page.
+  '/check_pages': 302,
   '/authentication_api.js': 200,
-  '/provisioning_api.js': 200
+  '/provisioning_api.js': 200,
+  '/bidbundle.js': 200
 };
 
 exports.resources_available = function(test) {
@@ -77,7 +80,7 @@ function respondsWith(hostname, port, path, code, test, done) {
     port: port,
     path: path
   }, function(res) {
-    test.equal(res.statusCode, code);
+    test.equal(res.statusCode, code, path);
     done();
   });
 }

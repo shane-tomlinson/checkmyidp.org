@@ -1,0 +1,34 @@
+extends layout
+
+block title
+  title checkmyidp.org - #{domain} authentication and provisioning page checks - Mozilla Persona Identity Provider (IdP) Linter
+
+block heading
+    h3 #{domain} results
+
+block content
+
+    - if (typeof error !== "undefined")
+      div #{error}
+    - else
+      ul
+        li
+          label Authentication:
+          ul
+            li
+              label page:
+              a(href=urls.auth) #{urls.auth}
+        li
+          label Provisioning:
+          ul
+            li
+              label page:
+              a(href=urls.prov) #{urls.prov}
+
+    nav
+      ul
+        li
+          a(href="#{url}") Check again
+        li
+          a(href="/") Try another domain
+
