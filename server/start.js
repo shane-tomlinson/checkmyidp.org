@@ -48,5 +48,7 @@ app.get('/lint', function(req, res) {
 });
 
 var port = config.get('port');
-console.log("Running server on port:", port);
-app.listen(port, '127.0.0.1');
+var host = config.get('host');
+app.listen(port, host, function() {
+  console.log("Server running at: ", (host + ":" + port));
+});

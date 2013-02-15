@@ -9,6 +9,7 @@
 
 module.exports = {
   // port to listen on
+  host: process.env['IP_ADDRESS'] || '127.0.0.1',
   port: process.env['PORT'] || 3000
 };
 

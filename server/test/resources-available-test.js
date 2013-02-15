@@ -56,7 +56,7 @@ function startServer(done) {
     var text = String(buf);
     console.log(text);
 
-    if (text.indexOf('Running server on port:') > -1) {
+    if (text.indexOf('Server running at:') > -1) {
       done();
     }
   });

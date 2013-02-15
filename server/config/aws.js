@@ -6,5 +6,4 @@ const _       = require('underscore');
 
 module.exports = Object.create(require('./default'));
 _.extend(module.exports, {
-  "host": "checkmyidp.org"
 });
