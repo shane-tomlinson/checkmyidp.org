@@ -1,0 +1,25 @@
+extends layout
+
+block title
+  title checkmyidp.org - #{domain} provisioning page failure - Mozilla Persona Identity Provider (IdP) Linter
+
+block heading
+    h3 #{domain} Provisioning Failure
+
+block content
+
+    ul
+      li
+        label Provisioning page:
+        a(href="#{urls.retry}") #{urls.retry}
+      li
+        label Reason:
+        span #{reason}
+
+    nav
+      ul
+        li
+          a(href="#{urls.retry}") Check again
+        li
+          a(href="/") Try another domain
+

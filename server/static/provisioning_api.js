@@ -38,19 +38,31 @@
 
   navigator.id.registerCertificate = function(certificate) {
     // a certificate has been generated, check it.
-    if (checkCertificate(certificate)) {
-      // a valid certificate
+    var reason = checkCertificate(certificate);
+    if (reason) {
+      provisioningFailure(reason);
     }
+    else {
+      location.href = "https://checkmyidp.org/prov_success" + toQueryString({
+        retry: location.href
+      });
+    }
+
   };
 
   navigator.id.raiseProvisioningFailure = function(reason) {
+    provisioningFailure(reason);
+  };
+
+  function provisioningFailure(reason) {
     // provisioning has failed. Show why
     var redirectTo = "https://checkmyidp.org/prov_failure" + toQueryString({
-      reason: reason
+      reason: reason,
+      retry: location.href
     });
 
-    location.href=redirectTo;
-  };
+    location.href = redirectTo;
+  }
 
   function getQueryParameter(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -106,11 +118,12 @@
       }
 
     } catch(e) {
-      console.error("Invalid certificate - ", String(e));
-      return false;
+      var error = String(e);
+      console.error("Invalid certificate - ", error);
+      return error;
     }
 
-    return true;
+    return false;
   }
 
 }());

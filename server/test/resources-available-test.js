@@ -21,8 +21,11 @@ const server_path = path.join(__dirname, '..', 'start.js');
 const urls_to_check = {
   '/': 200,
   '/lint?idp_url=eyedee.me': 200,
-  // check pages redirects to the authentication page.
+  // check_pages redirects to the authentication page.
   '/check_pages': 302,
+  '/auth_failure?retry=https://eyedee.me/auth': 200,
+  '/prov_failure?retry=https://eyedee.me/prov': 200,
+  '/prov_success?retry=https://eyedee.me/prov': 200,
   '/authentication_api.js': 200,
   '/provisioning_api.js': 200,
   '/bidbundle.js': 200

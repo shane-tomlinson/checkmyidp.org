@@ -72,6 +72,35 @@ app.get('/check_pages', function(req, res) {
   res.redirect(redirectTo);
 });
 
+app.get('/auth_failure', function(req, res) {
+  res.render('auth_failure.jade', {
+    domain: url.parse(req.query.retry).hostname,
+    reason: req.query.reason,
+    urls: {
+      retry: req.query.retry
+    }
+  });
+});
+
+app.get('/prov_failure', function(req, res) {
+  res.render('prov_failure.jade', {
+    domain: url.parse(req.query.retry).hostname,
+    reason: req.query.reason,
+    urls: {
+      retry: req.query.retry
+    }
+  });
+});
+
+app.get('/prov_success', function(req, res) {
+  res.render('prov_success.jade', {
+    domain: url.parse(req.query.retry).hostname,
+    urls: {
+      retry: req.query.retry
+    }
+  });
+});
+
 var port = config.get('port');
 var host = config.get('host');
 app.listen(port, host, function() {

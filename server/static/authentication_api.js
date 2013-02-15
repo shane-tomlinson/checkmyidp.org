@@ -24,7 +24,8 @@
   navigator.id.raiseAuthenticationFailure = function(reason) {
     // authentication failed, show why.
     var redirectTo = "https://checkmyidp.org/auth_failure" + toQueryString({
-      reason: reason
+      reason: reason,
+      retry: location.href
     });
 
     location.href=redirectTo;

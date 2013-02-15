@@ -1,0 +1,25 @@
+extends layout
+
+block title
+  title checkmyidp.org - #{domain} authentication page failure - Mozilla Persona Identity authider (IdP) Linter
+
+block heading
+    h3 #{domain} Authentication Failure
+
+block content
+
+    ul
+      li
+        label Authentication page:
+        a(href="#{urls.retry}") #{urls.retry}
+      li
+        label Reason:
+        span #{reason}
+
+    nav
+      ul
+        li
+          a(href="#{urls.retry}") Check again
+        li
+          a(href="/") Try another domain
+
