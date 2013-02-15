@@ -6,6 +6,7 @@ const express             = require('express'),
       path                = require('path'),
       url                 = require('url'),
       check_support       = require('./lib/check_primary_support'),
+      config              = require('./lib/config'),
       connect_fonts       = require('connect-fonts'),
       open_sans           = require('connect-fonts-opensans'),
       source_sans_pro     = require('connect-fonts-sourcesanspro');
@@ -21,13 +22,15 @@ app.use(connect_fonts.setup({
   allow_origin: "*"
 }));
 
+app.use(express.static(path.join(__dirname, 'static')));
+
 app.get('/', function(req, res) {
   res.render('index.jade');
 });
 
 app.get('/lint', function(req, res) {
-  var with_http = 'http://' + req.query.idp_url.replace(/https?:\/\//, '');
-  var domain = url.parse(with_http).hostname;
+  var idp_url = req.query.idp_url || "";
+  var domain = url.parse(idp_url).hostname;
 
   if (!(domain === req.query.idp_url)) {
     res.redirect('lint?idp_url=' + domain);
@@ -44,4 +47,6 @@ app.get('/lint', function(req, res) {
   });
 });
 
-app.listen(process.env['PORT'] || 3000, '127.0.0.1');
+var port = config.get('port');
+console.log("Running server on port:", port);
+app.listen(port, '127.0.0.1');

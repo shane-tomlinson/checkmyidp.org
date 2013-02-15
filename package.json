@@ -25,14 +25,15 @@
     "jwcrypto": "0.4.2",
     "connect-fonts": "0.0.9-alpha3",
     "connect-fonts-opensans": "0.0.2",
-    "connect-fonts-sourcesanspro": "0.0.1"
+    "connect-fonts-sourcesanspro": "0.0.1",
+    "underscore": "1.3.1"
   },
   "devDependencies": {
     "nodeunit": ">=0.6.4",
     "awsbox": "0.3.6"
   },
   "scripts": {
-    "test": "nodeunit test",
+    "test": "nodeunit server/test",
     "start": "node server/start.js"
 
   }
