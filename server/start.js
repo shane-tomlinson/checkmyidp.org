@@ -30,7 +30,9 @@ app.get('/', function(req, res) {
 
 app.get('/lint', function(req, res) {
   var idp_url = req.query.idp_url || "";
-  var domain = url.parse(idp_url).hostname;
+  // url.parse requires that the protocol be prepended to the domain name
+  var with_http = 'http://' + req.query.idp_url.replace(/https?:\/\//, '');
+  var domain = url.parse(with_http).hostname;
 
   if (!(domain === req.query.idp_url)) {
     res.redirect('lint?idp_url=' + domain);
