@@ -5,6 +5,9 @@ Persona/BrowserID Identity Provider.
 
 Check it out at http://checkmyidp.org
 
+## Build Status
+[![Build Status](https://secure.travis-ci.org/shane-tomlinson/checkmyidp.org.png?branch=master)](https://github.com/shane-tomlinson/checkmyidp.org)
+
 ## Author:
 * Shane Tomlinson
 * shane@shanetomlinson.com
