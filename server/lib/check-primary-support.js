@@ -44,19 +44,22 @@ exports.checkSupport = function(domain, done) {
       }
     }
 
-    var temp = {};
+    var temp = r.publicKey.serialized = {};
     r.publicKey.serializeToObject(temp);
-    r.publicKey.serialized = temp;
 
     var opts = {
-        xframe: false
+      xframe: true,
+      mode: 'auth'
     };
 
-    getResource('auth', r.urls.auth, opts, function (err, auth_res) {
+    getResource(r.urls.auth, opts, function (err, auth_res) {
       r.auth_include = err ? String(err) : auth_res.include;
+      r.auth_x_frame_option = auth_res.x_frame_option;
 
-      getResource('prov', r.urls.prov, opts, function(err, prov_res) {
+      opts.mode = 'prov';
+      getResource(r.urls.prov, opts, function(err, prov_res) {
         r.prov_include = err ? String(err) : prov_res.include;
+        r.prov_x_frame_option = prov_res.x_frame_option;
 
         // The user can check the full flow if they are using the
         // checkmyidp.org includes.
@@ -72,7 +75,7 @@ exports.checkSupport = function(domain, done) {
 /**
  * Retrieve one of their urls and examine aspects of it for issues
  */
-function getResource(mode, url, opts, cb) {
+function getResource(url, opts, cb) {
   var domain = urlp.parse(url).host;
   var path = urlp.parse(url).path;
   var body = '';
@@ -87,17 +90,9 @@ function getResource(mode, url, opts, cb) {
     });
 
     res.on('end', function() {
-       var include = getInclude(body, INCLUDES[mode]);
-
-      /*console.log(includes[mode], hasInclude);*/
-      /*checkResource(res, url, opts, body);*/
-      var res = {
-        include: include || false,
-        checkmyidp_include: include && isCheckMyIdPInclude(include),
-        body: body
-      };
-
-      return cb && cb(null, res);
+      checkResource(res, opts, body, function(err, results) {
+        cb && cb(null, results);
+      });
     });
   }).on('error', function (e) {
     console.log('ERROR: ', e.message);
@@ -127,24 +122,26 @@ function isCheckMyIdPInclude(include) {
 }
 
 /**
- * Called once we have a response.
- *
- * Do the provisioning and signin resources look kosher?
+ * check a resource to see if its status code is legit and x-frame-options
+ * header is not set.
  */
-function checkResource (resp, url, opts, body) {
-  console.log('response received:', body);
-  // Their are no X-Frame options
-  if (resp.statusCode !== 200) {
-    console.log('ERROR: HTTP status code=', resp.statusCode, url);
-  } else {
-    if (opts.xframe === true) {
-      var xframe = und.filter(Object.keys(resp.headers), function (header) {
-        return header.toLowerCase() === 'x-frame-options';
-      });
-      if (xframe.length === 1) {
-        console.log('ERROR: X-Frame-Options=', resp.headers[xframe[0]], ', BrowserID will not be able to communicate with your site.' +
-            ' Suppress X-Frame-Options for ', url);
-      }
-    }
+function checkResource(res, opts, body, done) {
+  var include = getInclude(body, INCLUDES[opts.mode]);
+  var results = {
+    statusCode: res.statusCode,
+    include: include || false,
+    checkmyidp_include: include && isCheckMyIdPInclude(include),
+    body: body
+  };
+
+
+  if (opts.xframe === true) {
+    var xframeOption = und.filter(res.headers, function (value, header) {
+      if (header.toLowerCase() === 'x-frame-options') return true;
+    })[0];
+
+    results.x_frame_option = xframeOption;
   }
+
+  done(null, results);
 }

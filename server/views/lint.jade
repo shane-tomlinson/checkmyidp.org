@@ -23,6 +23,11 @@ block content
               label page:
               a(href=urls.auth) #{urls.auth}
             li
+              label X-Frame-Option header:
+              span #{auth_x_frame_option || "none"}
+              - if (auth_x_frame_option && auth_x_frame_option !== "ALLOW")
+                span  - Must be set to "ALLOW"
+            li
               label included shim:
               span #{auth_include || "none"}
         li
@@ -31,6 +36,11 @@ block content
             li
               label page:
               a(href=urls.prov) #{urls.prov}
+            li
+              label X-Frame-Options header:
+              span #{prov_x_frame_option || "none"}
+              - if (prov_x_frame_option && prov_x_frame_option !== "ALLOW")
+                span  - Must be set to "ALLOW"
             li
               label included shim:
               span #{prov_include || "none"}
@@ -60,7 +70,7 @@ block content
 
 
     - if (!error && canCheckPages)
-      h3 Check Authentication and provisioning pages
+      h3 Check authentication and provisioning pages
       ul
         li
           form(action="/check_pages", method="get")
