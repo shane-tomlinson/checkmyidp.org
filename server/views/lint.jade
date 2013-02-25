@@ -8,7 +8,7 @@ block heading
 
 block content
 
-    - if (typeof error !== "undefined")
+    - if (error)
       div #{error}
     - else
       ul
@@ -23,8 +23,8 @@ block content
               label page:
               a(href=urls.auth) #{urls.auth}
             li
-              label contains shim:
-              span #{hasAuth}
+              label included shim:
+              span #{auth_include || "none"}
         li
           label Provisioning:
           ul
@@ -32,8 +32,8 @@ block content
               label page:
               a(href=urls.prov) #{urls.prov}
             li
-              label contains shim:
-              span #{hasProv}
+              label included shim:
+              span #{prov_include || "none"}
 
 
         li
@@ -59,7 +59,7 @@ block content
           a(href="/") Try another domain
 
 
-    - if (typeof error === "undefined")
+    - if (!error && canCheckPages)
       h3 Check Authentication and provisioning pages
       ul
         li

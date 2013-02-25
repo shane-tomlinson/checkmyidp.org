@@ -55,6 +55,7 @@ app.get('/lint', function(req, res) {
 
     result.url = req.url;
     result.domain = domain;
+    result.error = result.error || "";
     res.render('lint.jade', result);
   });
 });
