@@ -57,7 +57,7 @@ var fetchWellKnown = function (currentDomain, principalDomain, clientCB) {
                             ' is not a browserid primary - non-200 response code to ' +
                             WELL_KNOWN_URL);
     }
-    if (res.headers['content-type'].indexOf('application/json') !== 0) {
+    if (!res.headers['content-type'] || res.headers['content-type'].indexOf('application/json') !== 0) {
       return handleProxyIDP(currentDomain +
                             ' is not a browserid primary - non "application/json" response to ' +
                             WELL_KNOWN_URL);
