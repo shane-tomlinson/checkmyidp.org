@@ -19,6 +19,10 @@ app.engine('jade', require('jade').__express);
 app.set('views', path.join(__dirname, "views"));
 app.use(express.bodyParser());
 
+
+app.use(express.compress());
+
+
 var public_url = config.get('public_url');
 if (public_url !== "https://checkmyidp.org") {
   app.use(substitution_middleware.setup({
