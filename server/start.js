@@ -33,7 +33,9 @@ if (public_url !== "https://checkmyidp.org") {
 
 app.use(connect_fonts.setup({
   fonts: [ open_sans, source_sans_pro ],
-  allow_origin: "*"
+  allow_origin: "https://checkmyidp.org",
+  maxage: 180 * 24 * 60 * 60 * 1000,       // 180 days
+  compress: true
 }));
 
 app.use(express.static(path.join(__dirname, 'static')));
