@@ -1,5 +1,5 @@
 {
-  "Author": "Shane Tomlinson <shane@shanetomlinson.com> (https://shanetomlinson.com)",
+  "author": "Shane Tomlinson <shane@shanetomlinson.com> (https://shanetomlinson.com)",
   "name": "checkmyidp.org",
   "description": "A BrowserID/Mozilla Persona Identity Provider linter",
   "keywords": ["mozilla", "persona", "browserid"],
